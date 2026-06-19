@@ -64,26 +64,26 @@ const series = [
       <div class="w-icons">
         <a href="/" class="wi-btn"><Home /><span class="wi-tip">خانه</span></a>
         <a href="/about" class="wi-btn"><About /><span class="wi-tip">درباره من</span></a>
-        <a href="#" class="wi-btn"><Social /><span class="wi-tip">شبکه‌های اجتماعی</span></a>
+        <a href="javascript:void(0)" class="wi-btn"><Social /><span class="wi-tip">شبکه‌های اجتماعی</span></a>
         <button class="wi-btn" id="th-one"><span id="th-moon"><Moon /></span><span id="th-sun" style="display:none"><Sun /></span><span class="wi-tip">تم</span></button>
       </div>
       <div class="w-mini">
         <div class="w-mini-title">مجموعه مقالات</div>
         <ul class="item-list">
-          {series.map((s) => (<li><a href="#">{s.n}<span class="item-meta">({s.c} قسمت)</span></a></li>))}
+          {series.map((s) => (<li><a href="javascript:void(0)">{s.n}<span class="item-meta">({s.c} قسمت)</span></a></li>))}
         </ul>
       </div>
       <div class="w-mini">
         <div class="w-mini-title">تصادفی</div>
         <ul class="item-list">
-          {random.map((r) => (<li><a href="#">{r.t}<span class="item-meta">({r.c})</span></a></li>))}
+          {random.map((r) => (<li><a href="javascript:void(0)">{r.t}<span class="item-meta">({r.c})</span></a></li>))}
         </ul>
       </div>
       <div class="w-mini w-mini-sm">
         <div class="w-mini-title">دسته‌بندی</div>
         <ul class="cat-list">
           {cats.map((c) => (
-            <li><a href="#"><span class="cat-dot" style={`background:${c.color}`}></span>{c.name}<span class="cat-num">{c.count}</span></a></li>
+            <li><a href="javascript:void(0)"><span class="cat-dot" style={`background:${c.color}`}></span>{c.name}<span class="cat-num">{c.count}</span></a></li>
           ))}
         </ul>
       </div>
@@ -112,13 +112,13 @@ const series = [
       <div class="w-mini">
         <div class="w-mini-title">جدیدترین</div>
         <ul class="item-list">
-          {recent.map((r) => (<li><a href="#">{r.t}</a></li>))}
+          {recent.map((r) => (<li><a href="javascript:void(0)">{r.t}</a></li>))}
         </ul>
       </div>
       <div class="w-mini">
         <div class="w-mini-title">آرشیو</div>
         <ul class="arch-list">
-          {archive.map((a) => (<li><a href="#">{a.l}<span class="arch-num">{a.n}</span></a></li>))}
+          {archive.map((a) => (<li><a href="javascript:void(0)">{a.l}<span class="arch-num">{a.n}</span></a></li>))}
         </ul>
       </div>
       <div class="w-mini">
