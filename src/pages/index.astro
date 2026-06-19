@@ -1,0 +1,143 @@
+---
+import BaseLayout from "../layouts/BaseLayout.astro";
+import Home from "../icons/Home.astro";
+import About from "../icons/About.astro";
+import Moon from "../icons/Moon.astro";
+import Sun from "../icons/Sun.astro";
+import Social from "../icons/Social.astro";
+import Logo from "../icons/Logo.astro";
+import { menu } from "../data/menu";
+
+const cats = [
+  { name: "شیعه", color: "#dc2626", count: 8 },
+  { name: "الحاد", color: "#2563eb", count: 5 },
+  { name: "اخلاق", color: "#d97706", count: 12 },
+  { name: "فلسفه", color: "#7c3aed", count: 7 },
+  { name: "ادبیات", color: "#0891b2", count: 4 },
+  { name: "تاریخ", color: "#65a30d", count: 3 },
+];
+
+const recent = [
+  { t: "هنر رها کردن" },
+  { t: "قدرت خاموش صبح‌های منظم" },
+  { t: "درک مدرن از دین و معنویت" },
+];
+
+const archive = [
+  { l: "اردیبهشت ۱۴۰۵", n: 5 },
+  { l: "فروردین ۱۴۰۵", n: 8 },
+  { l: "اسفند ۱۴۰۴", n: 3 },
+];
+
+const random = [
+  { t: "چرا فلسفه بخوانیم؟", c: "فلسفه" },
+  { t: "عادت‌هایی که ماندگار می‌شوند", c: "اخلاق" },
+  { t: "علم و دین: تعارض یا تعامل", c: "الحاد" },
+];
+
+const series = [
+  { n: "سیر فلسفه غرب", c: 4 },
+  { n: "درآمدی بر شیعه‌شناسی", c: 3 },
+  { n: "اخلاق در زندگی مدرن", c: 5 },
+];
+---
+
+<BaseLayout title="عیسی طاهری" description="">
+  <div class="dashboard">
+    <!-- menu -->
+    <aside class="col-menu">
+      <div class="menu-logo"><a href="/"><Logo /><span class="wi-tip">عیسی طاهری</span></a></div>
+      <div class="menu-list">
+        {menu.map((item) => (
+          <>
+            <div class="menu-sec">{item.s}</div>
+            {item.i.map((sub) => <a href={sub.h} class="menu-sub">{sub.l}</a>)}
+          </>
+        ))}
+      </div>
+    </aside>
+
+    <!-- widget col 1: Icons / Categories / Series / Random -->
+    <div class="col-w1">
+      <div class="w-icons">
+        <a href="/" class="wi-btn"><Home /><span class="wi-tip">خانه</span></a>
+        <a href="/about" class="wi-btn"><About /><span class="wi-tip">درباره من</span></a>
+        <a href="#" class="wi-btn"><Social /><span class="wi-tip">شبکه‌های اجتماعی</span></a>
+        <button class="wi-btn" id="th-one"><span id="th-moon"><Moon /></span><span id="th-sun" style="display:none"><Sun /></span><span class="wi-tip">تم</span></button>
+      </div>
+      <div class="w-mini">
+        <div class="w-mini-title">مجموعه مقالات</div>
+        <ul class="item-list">
+          {series.map((s) => (<li><a href="#">{s.n}<span class="item-meta">({s.c} قسمت)</span></a></li>))}
+        </ul>
+      </div>
+      <div class="w-mini">
+        <div class="w-mini-title">تصادفی</div>
+        <ul class="item-list">
+          {random.map((r) => (<li><a href="#">{r.t}<span class="item-meta">({r.c})</span></a></li>))}
+        </ul>
+      </div>
+      <div class="w-mini w-mini-sm">
+        <div class="w-mini-title">دسته‌بندی</div>
+        <ul class="cat-list">
+          {cats.map((c) => (
+            <li><a href="#"><span class="cat-dot" style={`background:${c.color}`}></span>{c.name}<span class="cat-num">{c.count}</span></a></li>
+          ))}
+        </ul>
+      </div>
+    </div>
+    <script>
+      const btn = document.getElementById("th-one");
+      const moon = document.getElementById("th-moon");
+      const sun = document.getElementById("th-sun");
+      const h = document.documentElement;
+      function sync() {
+        const d = h.getAttribute("data-theme") === "dark";
+        moon.style.display = d ? "none" : "";
+        sun.style.display = d ? "" : "none";
+      }
+      sync();
+      btn.addEventListener("click", () => {
+        const d = h.getAttribute("data-theme") === "dark";
+        if (d) { h.removeAttribute("data-theme"); localStorage.setItem("theme", "light"); }
+        else { h.setAttribute("data-theme", "dark"); localStorage.setItem("theme", "dark"); }
+        sync();
+      });
+    </script>
+
+    <!-- widget col 2: Recent / Archive / Stats -->
+    <div class="col-w2">
+      <div class="w-mini">
+        <div class="w-mini-title">جدیدترین</div>
+        <ul class="item-list">
+          {recent.map((r) => (<li><a href="#">{r.t}</a></li>))}
+        </ul>
+      </div>
+      <div class="w-mini">
+        <div class="w-mini-title">آرشیو</div>
+        <ul class="arch-list">
+          {archive.map((a) => (<li><a href="#">{a.l}<span class="arch-num">{a.n}</span></a></li>))}
+        </ul>
+      </div>
+      <div class="w-mini">
+        <div class="w-mini-title">آمار</div>
+        <div class="stats-box">
+          <div class="stat-cell"><span class="stat-val">۳۹</span><span class="stat-lbl">کل</span></div>
+          <div class="stat-cell"><span class="stat-val">۸</span><span class="stat-lbl">شیعه</span></div>
+          <div class="stat-cell"><span class="stat-val">۱۴</span><span class="stat-lbl">کوتاه</span></div>
+        </div>
+      </div>
+    </div>
+
+    <!-- content -->
+    <main class="col-content">
+      <div class="content-grid">
+        <div class="content-item"></div>
+        <div class="content-item"></div>
+        <div class="content-item"></div>
+        <div class="content-item"></div>
+        <div class="content-item"></div>
+      </div>
+    </main>
+  </div>
+</BaseLayout>

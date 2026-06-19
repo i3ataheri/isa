@@ -1,0 +1,69 @@
+:root {
+  --font-body: "Vazirmatn", system-ui, -apple-system, sans-serif;
+  --font-heading: "Noto Kufi Arabic", "Vazirmatn", system-ui, sans-serif;
+  --font-menu: "Alexandria", "Vazirmatn", system-ui, sans-serif;
+
+  --color-bg: #faf9f7;
+  --color-bg-card: #ffffff;
+  --color-bg-secondary: #f3f1ee;
+
+  --color-text: #1d1d1f;
+  --color-text-secondary: #6b7280;
+  --color-text-muted: #9ca3af;
+  --color-text-inverse: #ffffff;
+
+  --color-border: #e5e2dc;
+  --color-border-light: #efede8;
+
+  --color-accent: #9f1239;
+  --color-accent-hover: #881337;
+  --color-accent-bg: #fce7f3;
+
+  --color-logo: #9f1239;
+
+  --radius-sm: 6px;
+  --radius-md: 10px;
+
+  --font-size-xs: 0.75rem;
+  --font-size-sm: 0.875rem;
+  --font-size-base: 1rem;
+  --font-size-lg: 1.125rem;
+  --font-size-xl: 1.4rem;
+
+  --line-height: 1.7;
+  --transition: 0.25s ease;
+}
+
+@media (prefers-color-scheme: dark) {
+  :root {
+    --color-bg: #0f0f0f;
+    --color-bg-card: #1a1a1a;
+    --color-bg-secondary: #222222;
+    --color-text: #e5e5e5;
+    --color-text-secondary: #a3a3a3;
+    --color-text-muted: #6b7280;
+    --color-text-inverse: #000000;
+    --color-border: #333;
+    --color-border-light: #2a2a2a;
+    --color-accent: #fb7185;
+    --color-accent-hover: #fda4af;
+    --color-accent-bg: #4c0519;
+    --color-logo: #fb7185;
+  }
+}
+
+[data-theme="dark"] {
+  --color-bg: #0f0f0f;
+  --color-bg-card: #1a1a1a;
+  --color-bg-secondary: #222222;
+  --color-text: #e5e5e5;
+  --color-text-secondary: #a3a3a3;
+  --color-text-muted: #6b7280;
+  --color-text-inverse: #000000;
+  --color-border: #333;
+  --color-border-light: #2a2a2a;
+  --color-accent: #fb7185;
+  --color-accent-hover: #fda4af;
+  --color-accent-bg: #4c0519;
+  --color-logo: #fb7185;
+}
