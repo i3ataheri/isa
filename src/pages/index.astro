@@ -4,7 +4,7 @@ import Home from "../icons/Home.astro";
 import About from "../icons/About.astro";
 import Moon from "../icons/Moon.astro";
 import Sun from "../icons/Sun.astro";
-import Social from "../icons/Social.astro";
+import Search from "../icons/Search.astro";
 import Logo from "../icons/Logo.astro";
 import { menu } from "../data/menu";
 import { links } from "../data/links";
@@ -64,7 +64,7 @@ const series = [
       <div class="w-icons">
         <a href="/" class="wi-btn"><Home /><span class="wi-tip">خانه</span></a>
         <a href="/about" class="wi-btn"><About /><span class="wi-tip">درباره من</span></a>
-        <a href="javascript:void(0)" class="wi-btn"><Social /><span class="wi-tip">شبکه‌های اجتماعی</span></a>
+        <button class="wi-btn" id="search-btn"><Search /><span class="wi-tip">جستجو</span></button>
         <button class="wi-btn" id="th-one"><span id="th-moon"><Moon /></span><span id="th-sun" style="display:none"><Sun /></span><span class="wi-tip">تم</span></button>
       </div>
       <div class="w-mini">
