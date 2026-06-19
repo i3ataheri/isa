@@ -331,29 +331,15 @@ html, body {
 .link-li:hover .link-tip { display: inline-block; }
 
 /* ── Pagefind search ── */
-#search { display: none; }
-
-.pagefind-ui--modal {
-  --pagefind-ui-primary: var(--color-accent);
-  --pagefind-ui-background: var(--color-bg-card);
-  --pagefind-ui-text: var(--color-text);
-  --pagefind-ui-border: var(--color-border);
-  --pagefind-ui-font: var(--font-body);
-  --pagefind-ui-scale: 0.85;
-}
-
-.pagefind-ui--modal .pagefind-ui__form {
-  max-width: 650px;
-  margin: 0 auto;
-}
-
-.pagefind-ui__search-input {
-  font-family: var(--font-body);
-  border-radius: 8px;
-}
-
-.pagefind-ui__result-title {
-  font-family: var(--font-heading);
+pagefind-modal {
+  --pagefind-primary: var(--color-accent);
+  --pagefind-background: var(--color-bg-card);
+  --pagefind-text: var(--color-text);
+  --pagefind-border: var(--color-border);
+  --pagefind-font: var(--font-body);
+  --pagefind-heading: var(--font-heading);
+  --pagefind-radius: 10px;
+  --pagefind-modal-max-width: 650px;
 }
 
 /* ── Responsive ── */
