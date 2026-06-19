@@ -7,8 +7,10 @@ import Sun from "../icons/Sun.astro";
 import Social from "../icons/Social.astro";
 import Logo from "../icons/Logo.astro";
 import { menu } from "../data/menu";
+import { links } from "../data/links";
 
 const cats = [
+  { name: "همه", color: "#9f1239", count: 39 },
   { name: "شیعه", color: "#dc2626", count: 8 },
   { name: "الحاد", color: "#2563eb", count: 5 },
   { name: "اخلاق", color: "#d97706", count: 12 },
@@ -120,13 +122,74 @@ const series = [
         </ul>
       </div>
       <div class="w-mini">
-        <div class="w-mini-title">آمار</div>
-        <div class="stats-box">
-          <div class="stat-cell"><span class="stat-val">۳۹</span><span class="stat-lbl">کل</span></div>
-          <div class="stat-cell"><span class="stat-val">۸</span><span class="stat-lbl">شیعه</span></div>
-          <div class="stat-cell"><span class="stat-val">۱۴</span><span class="stat-lbl">کوتاه</span></div>
+        <div class="w-mini-title">لینک‌های مفید</div>
+        <div class="link-slider" id="link-slider">
+          <div class="link-slides" id="link-slides">
+            {links.map((ln) => (<a href={ln.h} class="link-si">{ln.l}</a>))}
+          </div>
+          <div class="link-controls" id="link-controls" style="display:none">
+            <button class="link-arrow" id="link-prev">‹</button>
+            <div class="link-dots" id="link-dots"></div>
+            <button class="link-arrow" id="link-next">›</button>
+          </div>
         </div>
       </div>
+      <script>
+        (function(){
+          const c = document.getElementById("link-slides");
+          const all = Array.from(c.children);
+          const nAll = all.length;
+          if (!nAll) return;
+
+          const h = c.clientHeight;
+          const oh = all[0].offsetHeight;
+          const pp = Math.max(1, Math.floor(h / oh));
+          const np = Math.ceil(nAll / pp);
+
+          if (np === 1) return;
+
+          for (let p = 0; p < np; p++) {
+            const pg = document.createElement("div");
+            pg.className = "link-page";
+            for (let i = p * pp; i < Math.min((p + 1) * pp, nAll); i++) {
+              pg.appendChild(all[i]);
+            }
+            c.appendChild(pg);
+          }
+
+          const dots = document.getElementById("link-dots");
+          const prev = document.getElementById("link-prev");
+          const next = document.getElementById("link-next");
+          const slider = document.getElementById("link-slider");
+          document.getElementById("link-controls").style.display = "";
+
+          let idx = 0, timer;
+
+          for (let i = 0; i < np; i++) {
+            const d = document.createElement("span");
+            d.className = "link-dot";
+            d.dataset.index = i;
+            dots.appendChild(d);
+          }
+          const dd = dots.children;
+
+          function go(i) {
+            idx = i;
+            c.style.transform = `translateX(${-idx * 100}%)`;
+            for (let j = 0; j < np; j++) dd[j].classList.toggle("active", j === idx);
+          }
+
+          prev.addEventListener("click", () => { clearInterval(timer); go((idx - 1 + np) % np); timer = setInterval(ns, 5000); });
+          next.addEventListener("click", () => { clearInterval(timer); go((idx + 1) % np); timer = setInterval(ns, 5000); });
+          for (let i = 0; i < np; i++) dd[i].addEventListener("click", () => { clearInterval(timer); go(i); timer = setInterval(ns, 5000); });
+          slider.addEventListener("mouseenter", () => clearInterval(timer));
+          slider.addEventListener("mouseleave", () => { timer = setInterval(ns, 5000); });
+
+          function ns() { go((idx + 1) % np); }
+          go(0);
+          timer = setInterval(ns, 5000);
+        })();
+      </script>
     </div>
 
     <!-- content -->
