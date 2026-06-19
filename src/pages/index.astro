@@ -8,15 +8,18 @@ import Sun from "../icons/Sun.astro";
 import Logo from "../icons/Logo.astro";
 import { menu } from "../data/menu";
 import { links } from "../data/links";
+import { getCollection } from "astro:content";
 
+const allPosts = await getCollection("blog");
+const catColors = ["#9f1239", "#dc2626", "#2563eb", "#d97706", "#7c3aed", "#0891b2", "#65a30d", "#be123c", "#9333ea", "#0d9488"];
+const sections = menu.map((m) => m.s).filter(Boolean);
 const cats = [
-  { name: "همه", color: "#9f1239", count: 39 },
-  { name: "شیعه", color: "#dc2626", count: 8 },
-  { name: "الحاد", color: "#2563eb", count: 5 },
-  { name: "اخلاق", color: "#d97706", count: 12 },
-  { name: "فلسفه", color: "#7c3aed", count: 7 },
-  { name: "ادبیات", color: "#0891b2", count: 4 },
-  { name: "تاریخ", color: "#65a30d", count: 3 },
+  { name: "همه", color: catColors[0], count: allPosts.length },
+  ...sections.map((s, i) => ({
+    name: s,
+    color: catColors[(i + 1) % catColors.length],
+    count: allPosts.filter((p) => p.data.category === s).length,
+  })),
 ];
 
 const recent = [
@@ -106,7 +109,7 @@ const series = [
         sync();
       });
       document.getElementById("search-btn")?.addEventListener("click", () => {
-        document.querySelector("pagefind-modal")?.toggle();
+        document.querySelector("pagefind-modal")?.open();
       });
     </script>
 
