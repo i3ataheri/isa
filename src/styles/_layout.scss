@@ -332,14 +332,13 @@ html, body {
 
 /* ── Pagefind search ── */
 pagefind-modal {
-  --pagefind-primary: var(--color-accent);
-  --pagefind-background: var(--color-bg-card);
-  --pagefind-text: var(--color-text);
-  --pagefind-border: var(--color-border);
-  --pagefind-font: var(--font-body);
-  --pagefind-heading: var(--font-heading);
-  --pagefind-radius: 10px;
-  --pagefind-modal-max-width: 650px;
+  --pf-primary: var(--color-accent);
+  --pf-background: var(--color-bg-card);
+  --pf-text: var(--color-text);
+  --pf-border: var(--color-border);
+  --pf-font: var(--font-body);
+  --pf-border-radius: 10px;
+  --pf-modal-max-width: 650px;
 }
 
 /* ── Responsive ── */

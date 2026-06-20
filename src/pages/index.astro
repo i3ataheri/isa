@@ -109,7 +109,13 @@ const series = [
         sync();
       });
       document.getElementById("search-btn")?.addEventListener("click", () => {
-        document.querySelector("pagefind-modal")?.open();
+        const m = document.querySelector("pagefind-modal");
+        if (m && typeof m.open === "function") { m.open(); return; }
+        // fallback: access via Pagefind instance registry
+        const im = window.PagefindComponents?.getInstanceManager?.();
+        const inst = im?.getInstance?.("default");
+        const modal = inst?.getUtilities?.("modal")?.[0];
+        if (modal && typeof modal.open === "function") modal.open();
       });
     </script>
 
