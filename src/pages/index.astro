@@ -66,7 +66,7 @@ const series = [
     <div class="col-w1">
       <div class="w-icons">
         <a href="/" class="wi-btn"><Home /><span class="wi-tip">خانه</span></a>
-        <a href="/about" class="wi-btn"><About /><span class="wi-tip">درباره من</span></a>
+        <button class="wi-btn" id="about-btn"><About /><span class="wi-tip">درباره من</span></button>
         <button class="wi-btn" id="search-btn"><Search /><span class="wi-tip">جستجو</span></button>
         <button class="wi-btn" id="th-one"><span id="th-moon"><Moon /></span><span id="th-sun" style="display:none"><Sun /></span><span class="wi-tip">تم</span></button>
       </div>
@@ -111,13 +111,25 @@ const series = [
       document.getElementById("search-btn")?.addEventListener("click", () => {
         const m = document.querySelector("pagefind-modal");
         if (m && typeof m.open === "function") { m.open(); return; }
-        // fallback: access via Pagefind instance registry
         const im = window.PagefindComponents?.getInstanceManager?.();
         const inst = im?.getInstance?.("default");
         const modal = inst?.getUtilities?.("modal")?.[0];
         if (modal && typeof modal.open === "function") modal.open();
       });
+      const ab = document.getElementById("about-btn");
+      const am = document.getElementById("about-modal");
+      ab?.addEventListener("click", () => am?.showModal());
+      document.getElementById("about-close")?.addEventListener("click", () => am?.close());
+      am?.addEventListener("click", (e) => { if (e.target === am) am.close(); });
     </script>
+
+    <!-- About modal -->
+    <dialog id="about-modal" class="about-dialog">
+      <button class="about-close" id="about-close" aria-label="بستن">&times;</button>
+      <h2 class="about-title">درباره من</h2>
+      <p class="about-desc">نویسنده و فعال دینی اهل سنت از خراسان زمین ساکن در دیار وحی</p>
+      <p class="about-body">می‌نویسم از دین، باورهای فراموش‌شده و نگاه نقادانه به سنت و مدرنیته. اینجا جایی است برای مرور آنچه نادیده گرفته شده، بازخوانی باورهای کهن از منظری تازه، و گفت‌وگو دربارهٔ مسائل اعتقادی و اجتماعیِ جهان اسلام.</p>
+    </dialog>
 
     <!-- widget col 2: Recent / Archive / Stats -->
     <div class="col-w2">
