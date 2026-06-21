@@ -16,13 +16,13 @@ function getCats(p: { data: { category?: string | string[] } }): string[] {
 }
 
 const allPosts = await getCollection("blog");
-const published = allPosts.filter((p) => !p.data.draft).sort((a, b) => (b.data.date?.valueOf() ?? 0) - (a.data.date?.valueOf() ?? 0) || (b.data.seriesPart ?? 0) - (a.data.seriesPart ?? 0));
+const published = allPosts.filter((p) => !p.data.draft).sort((a, b) => (b.data.date?.valueOf() ?? 0) - (a.data.date?.valueOf() ?? 0));
 const recent = published.slice(0, 5);
 const random = published.toSorted(() => Math.random() - 0.5).slice(0, 3);
 const seriesPosts = published.filter((p) => p.data.series);
 const seriesGroups = [...new Set(seriesPosts.map((p) => p.data.series).filter(Boolean))].map((s) => ({
   name: s as string,
-  posts: seriesPosts.filter((p) => p.data.series === s).sort((a, b) => (a.data.seriesPart ?? 0) - (b.data.seriesPart ?? 0)),
+  posts: seriesPosts.filter((p) => p.data.series === s).sort((a, b) => (a.data.date?.valueOf() ?? 0) - (b.data.date?.valueOf() ?? 0)),
 }));
 
 const catColors = ["#9f1239", "#dc2626", "#2563eb", "#d97706", "#7c3aed", "#0891b2", "#65a30d", "#be123c", "#9333ea", "#0d9488"];
