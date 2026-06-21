@@ -38,7 +38,7 @@ function excerpt(p: typeof published[0]) {
     .replace(/[\[`*>_~]/g, "")
     .replace(/!?\[([^\]]*)\]\([^)]*\)/g, "$1")
     .replace(/\n{3,}/g, "\n\n")
-    .replace(/\n\n/g, "  \n\n")
+    .replace(/\n\n/g, "<br><br>")
     .trim();
 }
 
@@ -164,7 +164,7 @@ const archive = [...months.entries()].slice(0, 6);
         {published.map((post) => (
           <article class="content-item">
             <h3><a href={`/blog/${post.slug}`}>{post.data.title}</a></h3>
-            {excerpt(post) && <div class="content-excerpt">{excerpt(post)}</div>}
+            {excerpt(post) && <div class="content-excerpt" set:html={excerpt(post)} />}
             <div class="content-meta">
               {post.data.category && <span class="content-cat">{post.data.category}</span>}
               {post.data.date && <time>{new Date(post.data.date).toLocaleDateString("fa-IR")}</time>}
