@@ -482,21 +482,18 @@ pagefind-modal {
 .share-btn:hover { opacity: 0.85; }
 
 /* ── Blog listing ── */
-.blog-listing {
-  max-width: 720px;
-  margin: 2rem auto;
-  padding: 0 1rem;
-}
 .blog-listing-title {
   font-family: var(--font-heading);
-  font-size: 1.3rem;
-  margin-bottom: 1.5rem;
+  font-size: 1rem;
+  margin-bottom: 1rem;
+  grid-column: 1 / -1;
 }
 .blog-listing-sections {
   display: grid;
   grid-template-columns: repeat(5, 1fr);
   gap: 1.5rem;
   align-items: start;
+  height: 100%;
 }
 .blog-section-title {
   font-family: var(--font-heading);
