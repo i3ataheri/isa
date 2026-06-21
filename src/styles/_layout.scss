@@ -493,9 +493,10 @@ pagefind-modal {
   margin-bottom: 1.5rem;
 }
 .blog-listing-sections {
-  display: flex;
-  flex-direction: column;
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(240px, 1fr));
   gap: 1.5rem;
+  align-items: start;
 }
 .blog-section-title {
   font-family: var(--font-heading);
