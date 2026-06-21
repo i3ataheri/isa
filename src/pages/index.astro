@@ -87,7 +87,7 @@ const archive = [...months.entries()].slice(0, 6);
       </div>
       <div class="w-mini">
         <div class="w-mini-title">مجموعه مقالات</div>
-        {seriesGroups.length > 0 ? seriesGroups.map((sg) => (<><div class="series-group-name">{sg.name}</div><ul class="item-list">{sg.posts.map((p, i) => (<li><a href={`/blog/${p.slug}`}>{sg.posts.length > 1 ? `${i + 1}. ` : ""}{p.data.title}</a></li>))}</ul></>)) : <ul class="item-list"><li style="font-size:0.65rem;color:var(--color-text-muted)">مجموعه‌ای وجود ندارد</li></ul>}
+        {seriesGroups.length > 0 ? seriesGroups.map((sg) => (<><div class="series-group-name">{sg.name}</div><ul class="item-list">{sg.posts.map((p) => (<li><a href={`/blog/${p.slug}`}>{p.data.title}</a></li>))}</ul></>)) : <ul class="item-list"><li style="font-size:0.65rem;color:var(--color-text-muted)">مجموعه‌ای وجود ندارد</li></ul>}
       </div>
       <div class="w-mini">
         <div class="w-mini-title">تصادفی</div>
