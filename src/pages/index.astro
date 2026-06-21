@@ -31,7 +31,15 @@ function monthName(d: Date) {
 }
 
 function excerpt(p: typeof published[0]) {
-  return p.data.description || p.body?.replace(/[#*\[\]`>_~|]/g, "").slice(0, 600) || "";
+  if (p.data.description) return p.data.description;
+  if (!p.body) return "";
+  return p.body
+    .replace(/^#+\s+/gm, "")
+    .replace(/[\[`*>_~]/g, "")
+    .replace(/!?\[([^\]]*)\]\([^)]*\)/g, "$1")
+    .replace(/\n{3,}/g, "\n\n")
+    .replace(/\n\n/g, "  \n\n")
+    .trim();
 }
 
 const months = new Map<string, number>();
@@ -156,7 +164,7 @@ const archive = [...months.entries()].slice(0, 6);
         {published.map((post) => (
           <article class="content-item">
             <h3><a href={`/blog/${post.slug}`}>{post.data.title}</a></h3>
-            {excerpt(post) && <p>{excerpt(post)}</p>}
+            {excerpt(post) && <div class="content-excerpt">{excerpt(post)}</div>}
             <div class="content-meta">
               {post.data.category && <span class="content-cat">{post.data.category}</span>}
               {post.data.date && <time>{new Date(post.data.date).toLocaleDateString("fa-IR")}</time>}

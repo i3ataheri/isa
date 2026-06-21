@@ -269,15 +269,12 @@ html, body {
 .content-item h3 a:hover {
   color: var(--color-accent);
 }
-.content-item p {
+.content-item .content-excerpt {
   font-size: 0.8rem;
   color: var(--color-text-secondary);
   margin-bottom: 0.4rem;
   flex: 1;
   overflow: hidden;
-  display: -webkit-box;
-  -webkit-line-clamp: 99;
-  -webkit-box-orient: vertical;
 }
 .content-meta {
   display: flex;
