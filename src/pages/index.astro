@@ -16,7 +16,7 @@ function getCats(p: { data: { category?: string | string[] } }): string[] {
 }
 
 const allPosts = await getCollection("blog");
-const published = allPosts.filter((p) => !p.data.draft).sort((a, b) => (b.data.date?.valueOf() ?? 0) - (a.data.date?.valueOf() ?? 0));
+const published = allPosts.filter((p) => !p.data.draft).sort((a, b) => (b.data.date?.valueOf() ?? 0) - (a.data.date?.valueOf() ?? 0) || a.data.title.localeCompare(b.data.title));
 const recent = published.slice(0, 5);
 const random = published.toSorted(() => Math.random() - 0.5).slice(0, 3);
 const seriesPosts = published.filter((p) => p.data.series);
