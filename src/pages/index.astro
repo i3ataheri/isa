@@ -30,6 +30,10 @@ function monthName(d: Date) {
   return d.toLocaleDateString("fa-IR", { year: "numeric", month: "long" });
 }
 
+function excerpt(p: typeof published[0]) {
+  return p.data.description || p.body?.replace(/[#*\[\]`>_~|]/g, "").slice(0, 160) + "…" || "";
+}
+
 const months = new Map<string, number>();
 for (const p of published) {
   if (p.data.date) {
@@ -152,7 +156,7 @@ const archive = [...months.entries()].slice(0, 6);
         {published.map((post) => (
           <article class="content-item">
             <h3><a href={`/blog/${post.slug}`}>{post.data.title}</a></h3>
-            {post.data.description && <p>{post.data.description}</p>}
+            {excerpt(post) && <p>{excerpt(post)}</p>}
             <div class="content-meta">
               {post.data.category && <span class="content-cat">{post.data.category}</span>}
               {post.data.date && <time>{new Date(post.data.date).toLocaleDateString("fa-IR")}</time>}
