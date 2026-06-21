@@ -31,7 +31,7 @@ function monthName(d: Date) {
 }
 
 function excerpt(p: typeof published[0]) {
-  return p.data.description || p.body?.replace(/[#*\[\]`>_~|]/g, "").slice(0, 160) + "…" || "";
+  return p.data.description || p.body?.replace(/[#*\[\]`>_~|]/g, "").slice(0, 600) || "";
 }
 
 const months = new Map<string, number>();

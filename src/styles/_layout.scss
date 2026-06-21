@@ -273,10 +273,11 @@ html, body {
   font-size: 0.8rem;
   color: var(--color-text-secondary);
   margin-bottom: 0.4rem;
-  display: -webkit-box;
-  -webkit-line-clamp: 3;
-  -webkit-box-orient: vertical;
+  flex: 1;
   overflow: hidden;
+  display: -webkit-box;
+  -webkit-line-clamp: 99;
+  -webkit-box-orient: vertical;
 }
 .content-meta {
   display: flex;
