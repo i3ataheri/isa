@@ -1,37 +1,34 @@
 ---
 import BaseLayout from "../../layouts/BaseLayout.astro";
 import { getCollection } from "astro:content";
+import { menu } from "../../data/menu";
 
 const allPosts = await getCollection("blog");
 const published = allPosts.filter((p) => !p.data.draft).sort((a, b) => (b.data.date?.valueOf() ?? 0) - (a.data.date?.valueOf() ?? 0));
 
-function excerpt(p: typeof published[0]) {
-  if (p.data.description) return p.data.description;
-  if (!p.body) return "";
-  return p.body
-    .replace(/^#+\s+/gm, "")
-    .replace(/[\[`*>_~]/g, "")
-    .replace(/!?\[([^\]]*)\]\([^)]*\)/g, "$1")
-    .replace(/\n{3,}/g, "\n\n")
-    .replace(/\n\n/g, "<br><br>")
-    .trim();
-}
+const sections = menu.map((m) => m.s).filter(Boolean);
+const grouped = sections.map((s) => ({
+  name: s,
+  posts: published.filter((p) => p.data.category === s),
+})).filter((g) => g.posts.length > 0);
+
+const uncategorized = published.filter((p) => !p.data.category);
+if (uncategorized.length > 0) grouped.push({ name: "متفرقه", posts: uncategorized });
 ---
 
 <BaseLayout title="همه مطالب — عیسی طاهری" description="تمام نوشته‌های عیسی طاهری">
   <main class="blog-listing">
     <h1 class="blog-listing-title">همه مطالب</h1>
-    <div class="blog-listing-grid">
-      {published.map((post) => (
-        <article class="blog-listing-item">
-          <h2 class="blog-listing-item-title"><a href={`/blog/${post.slug}`}>{post.data.title}</a></h2>
-          {excerpt(post) && <div class="blog-listing-excerpt" set:html={excerpt(post)} />}
-          <div class="blog-listing-meta">
-            {post.data.category && <span class="blog-listing-cat">{post.data.category}</span>}
-            {post.data.date && <time>{new Date(post.data.date).toLocaleDateString("fa-IR")}</time>}
-            <a href={`/blog/${post.slug}`} class="blog-listing-read">ادامه مطلب</a>
-          </div>
-        </article>
+    <div class="blog-listing-sections">
+      {grouped.map((g) => (
+        <section class="blog-section">
+          <h2 class="blog-section-title">{g.name}</h2>
+          <ul class="blog-section-list">
+            {g.posts.map((p) => (
+              <li><a href={`/blog/${p.slug}`}>{p.data.title}</a></li>
+            ))}
+          </ul>
+        </section>
       ))}
     </div>
   </main>
