@@ -10,6 +10,11 @@ import { menu } from "../data/menu";
 import { links } from "../data/links";
 import { getCollection } from "astro:content";
 
+function getCats(p: { data: { category?: string | string[] } }): string[] {
+  if (!p.data.category) return [];
+  return Array.isArray(p.data.category) ? p.data.category : [p.data.category];
+}
+
 const allPosts = await getCollection("blog");
 const published = allPosts.filter((p) => !p.data.draft).sort((a, b) => (b.data.date?.valueOf() ?? 0) - (a.data.date?.valueOf() ?? 0));
 const recent = published.slice(0, 5);
@@ -22,7 +27,7 @@ const cats = [
   ...sections.map((s, i) => ({
     name: s,
     color: catColors[(i + 1) % catColors.length],
-    count: allPosts.filter((p) => p.data.category === s).length,
+    count: allPosts.filter((p) => getCats(p).includes(s)).length,
   })),
 ];
 
