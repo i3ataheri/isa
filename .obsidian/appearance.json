@@ -1,0 +1,13 @@
+{
+  "baseTheme": "system",
+  "theme": "obsidian",
+  "accentColor": "",
+  "cssTheme": "",
+  "enabledCssSnippets": ["rtl"],
+  "textFontFamily": "Vazirmatn",
+  "monospaceFontFamily": "Consolas",
+  "interfaceFontFamily": "Vazirmatn",
+  "nativeMenus": false,
+  "showRibbon": true,
+  "showViewHeader": true
+}

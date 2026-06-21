@@ -1,0 +1,23 @@
+{
+  "commitMessage": "chore: update content",
+  "autoCommitMessage": "chore: auto-save {date}",
+  "commitDateFormat": "YYYY-MM-DD HH:mm:ss",
+  "autoSaveInterval": 5,
+  "autoPushInterval": 30,
+  "autoPullInterval": 0,
+  "autoCommitDelay": 2,
+  "syncMethod": "rebase",
+  "pushOnInterval": true,
+  "pushToRemote": "origin",
+  "pushToBranch": "master",
+  "pullOnInterval": false,
+  "pullToWorktree": false,
+  "fetchOnPull": true,
+  "fetchAllRemotes": false,
+  "updateSubmodules": false,
+  "stageAllBeforePush": true,
+  "showStatusBar": true,
+  "showInlineStatus": true,
+  "showNotifications": true,
+  "currentBranch": "master"
+}

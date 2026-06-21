@@ -1,7 +1,8 @@
 node_modules/
 dist/
 .astro/
-.obsidian/
+.obsidian/workspace
+.obsidian/workspace.json
 .DS_Store
 *.local
 local.txt

@@ -1,0 +1,17 @@
+{
+  "showLineNumber": true,
+  "rightToLeft": true,
+  "newFileLocation": "folder",
+  "newFileFolderPath": "src/content/blog",
+  "attachmentFolderPath": "public/images",
+  "alwaysUpdateLinks": true,
+  "showUnsupportedFiles": true,
+  "foldHeading": true,
+  "foldIndent": true,
+  "defaultViewMode": "source",
+  "livePreview": false,
+  "strictLineBreaks": true,
+  "tabSize": 2,
+  "useTab": false,
+  "templateFolder": ".obsidian/templates"
+}
