@@ -1,13 +1,13 @@
 .markdown-source-view,
 .markdown-reading-view {
   direction: rtl;
-  text-align: right;
+  text-align: justify;
 }
 .cm-content {
   direction: rtl;
-  text-align: right;
+  text-align: justify;
 }
 .cm-line {
   direction: rtl;
-  text-align: right;
+  text-align: justify;
 }
