@@ -242,12 +242,15 @@ html, body {
 .content-grid {
   display: grid;
   grid-template-columns: 1fr 1fr;
-  grid-template-rows: 1.5fr 1fr 1fr;
+  grid-template-rows: 3fr 2fr 2fr;
   gap: 0.75rem;
   height: 100%;
 }
 .content-item:first-child {
   grid-column: 1 / -1;
+  display: grid;
+  grid-template-rows: 1fr 1.5fr 0.6fr;
+  gap: 0.3rem;
 }
 
 .content-item {
@@ -255,13 +258,13 @@ html, body {
   border: 1px solid var(--color-border);
   border-radius: var(--radius-md);
   padding: 1rem;
-  display: flex;
-  flex-direction: column;
+  overflow: hidden;
   box-shadow: 0 1px 3px rgba(0,0,0,0.06);
 }
 .content-item h3 {
   font-size: 0.95rem;
-  margin-bottom: 0.3rem;
+  margin: 0;
+  overflow: hidden;
 }
 .content-item h3 a {
   color: var(--color-text);
@@ -272,15 +275,13 @@ html, body {
 .content-item .content-excerpt {
   font-size: 0.88rem;
   color: var(--color-text-secondary);
-  margin-bottom: 0.4rem;
-  flex: 1;
   overflow: hidden;
 }
 .content-meta {
   display: flex;
   gap: 0.5rem;
   align-items: center;
-  margin-top: auto;
+  align-self: end;
 }
 .content-cat {
   font-size: 0.7rem;
@@ -297,19 +298,6 @@ html, body {
   font-size: 0.72rem;
   color: var(--color-accent);
   margin-right: auto;
-}
-
-.content-item::after {
-  content: "";
-  display: block;
-  height: 0.4rem;
-  width: 85%;
-  background: var(--color-border-light);
-  border-radius: 4px;
-}
-
-.content-item:first-child {
-  grid-column: 1 / -1;
 }
 
 /* ── Widget internals ── */
