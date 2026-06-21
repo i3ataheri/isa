@@ -1,9 +1,10 @@
 {
-  "baseTheme": "system",
   "theme": "obsidian",
   "accentColor": "",
   "cssTheme": "",
-  "enabledCssSnippets": ["rtl"],
+  "enabledCssSnippets": [
+    "rtl"
+  ],
   "textFontFamily": "Vazirmatn",
   "monospaceFontFamily": "Consolas",
   "interfaceFontFamily": "Vazirmatn",
