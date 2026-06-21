@@ -288,6 +288,11 @@ html, body {
   font-size: 0.7rem;
   color: var(--color-text-muted);
 }
+.read-more {
+  font-size: 0.72rem;
+  color: var(--color-accent);
+  margin-right: auto;
+}
 
 .content-item::after {
   content: "";

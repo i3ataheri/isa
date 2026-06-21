@@ -11,6 +11,10 @@ import { links } from "../data/links";
 import { getCollection } from "astro:content";
 
 const allPosts = await getCollection("blog");
+const published = allPosts.filter((p) => !p.data.draft).sort((a, b) => (b.data.date?.valueOf() ?? 0) - (a.data.date?.valueOf() ?? 0));
+const recent = published.slice(0, 5);
+const random = published.toSorted(() => Math.random() - 0.5).slice(0, 3);
+
 const catColors = ["#9f1239", "#dc2626", "#2563eb", "#d97706", "#7c3aed", "#0891b2", "#65a30d", "#be123c", "#9333ea", "#0d9488"];
 const sections = menu.map((m) => m.s).filter(Boolean);
 const cats = [
@@ -22,29 +26,23 @@ const cats = [
   })),
 ];
 
-const recent = [
-  { t: "هنر رها کردن" },
-  { t: "قدرت خاموش صبح‌های منظم" },
-  { t: "درک مدرن از دین و معنویت" },
-];
+function excerpt(p: typeof published[0], max = 120) {
+  const t = p.data.description || p.body || "";
+  return t.length > max ? t.slice(0, max) + "…" : t;
+}
 
-const archive = [
-  { l: "اردیبهشت ۱۴۰۵", n: 5 },
-  { l: "فروردین ۱۴۰۵", n: 8 },
-  { l: "اسفند ۱۴۰۴", n: 3 },
-];
+function monthName(d: Date) {
+  return d.toLocaleDateString("fa-IR", { year: "numeric", month: "long" });
+}
 
-const random = [
-  { t: "چرا فلسفه بخوانیم؟", c: "فلسفه" },
-  { t: "عادت‌هایی که ماندگار می‌شوند", c: "اخلاق" },
-  { t: "علم و دین: تعارض یا تعامل", c: "الحاد" },
-];
-
-const series = [
-  { n: "سیر فلسفه غرب", c: 4 },
-  { n: "درآمدی بر شیعه‌شناسی", c: 3 },
-  { n: "اخلاق در زندگی مدرن", c: 5 },
-];
+const months = new Map<string, number>();
+for (const p of published) {
+  if (p.data.date) {
+    const k = monthName(p.data.date);
+    months.set(k, (months.get(k) || 0) + 1);
+  }
+}
+const archive = [...months.entries()].slice(0, 6);
 ---
 
 <BaseLayout title="عیسی طاهری" description="">
@@ -73,13 +71,13 @@ const series = [
       <div class="w-mini">
         <div class="w-mini-title">مجموعه مقالات</div>
         <ul class="item-list">
-          {series.map((s) => (<li><a href="javascript:void(0)">{s.n}<span class="item-meta">({s.c} قسمت)</span></a></li>))}
+          {published.map((p, i) => (<li><a href={`/blog/${p.slug}`}>{i + 1}. {p.data.title}</a></li>))}
         </ul>
       </div>
       <div class="w-mini">
         <div class="w-mini-title">تصادفی</div>
         <ul class="item-list">
-          {random.map((r) => (<li><a href="javascript:void(0)">{r.t}<span class="item-meta">({r.c})</span></a></li>))}
+          {random.map((r) => (<li><a href={`/blog/${r.slug}`}>{r.data.title}<span class="item-meta">({r.data.category})</span></a></li>))}
         </ul>
       </div>
       <div class="w-mini w-mini-sm">
@@ -136,13 +134,13 @@ const series = [
       <div class="w-mini">
         <div class="w-mini-title">جدیدترین</div>
         <ul class="item-list">
-          {recent.map((r) => (<li><a href="javascript:void(0)">{r.t}</a></li>))}
+          {recent.map((r) => (<li><a href={`/blog/${r.slug}`}>{r.data.title}</a></li>))}
         </ul>
       </div>
       <div class="w-mini">
         <div class="w-mini-title">آرشیو</div>
         <ul class="arch-list">
-          {archive.map((a) => (<li><a href="javascript:void(0)">{a.l}<span class="arch-num">{a.n}</span></a></li>))}
+          {archive.map(([l, n]) => (<li><a href="javascript:void(0)">{l}<span class="arch-num">{n}</span></a></li>))}
         </ul>
       </div>
       <div class="w-mini">
@@ -156,13 +154,14 @@ const series = [
     <!-- content -->
     <main class="col-content">
       <div class="content-grid">
-        {allPosts.filter((p) => !p.data.draft).map((post) => (
+        {published.map((post) => (
           <article class="content-item">
             <h3><a href={`/blog/${post.slug}`}>{post.data.title}</a></h3>
-            {post.data.description && <p>{post.data.description}</p>}
+            {excerpt(post) && <p>{excerpt(post)}</p>}
             <div class="content-meta">
               {post.data.category && <span class="content-cat">{post.data.category}</span>}
               {post.data.date && <time>{new Date(post.data.date).toLocaleDateString("fa-IR")}</time>}
+              <a href={`/blog/${post.slug}`} class="read-more">ادامه مطلب</a>
             </div>
           </article>
         ))}
