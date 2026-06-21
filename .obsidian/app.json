@@ -10,7 +10,7 @@
   "foldHeading": true,
   "foldIndent": true,
   "defaultViewMode": "source",
-  "livePreview": false,
+  "livePreview": true,
   "strictLineBreaks": true,
   "tabSize": 2,
   "useTab": false,
