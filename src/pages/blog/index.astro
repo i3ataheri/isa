@@ -1,0 +1,38 @@
+---
+import BaseLayout from "../../layouts/BaseLayout.astro";
+import { getCollection } from "astro:content";
+
+const allPosts = await getCollection("blog");
+const published = allPosts.filter((p) => !p.data.draft).sort((a, b) => (b.data.date?.valueOf() ?? 0) - (a.data.date?.valueOf() ?? 0));
+
+function excerpt(p: typeof published[0]) {
+  if (p.data.description) return p.data.description;
+  if (!p.body) return "";
+  return p.body
+    .replace(/^#+\s+/gm, "")
+    .replace(/[\[`*>_~]/g, "")
+    .replace(/!?\[([^\]]*)\]\([^)]*\)/g, "$1")
+    .replace(/\n{3,}/g, "\n\n")
+    .replace(/\n\n/g, "<br><br>")
+    .trim();
+}
+---
+
+<BaseLayout title="همه مطالب — عیسی طاهری" description="تمام نوشته‌های عیسی طاهری">
+  <main class="blog-listing">
+    <h1 class="blog-listing-title">همه مطالب</h1>
+    <div class="blog-listing-grid">
+      {published.map((post) => (
+        <article class="blog-listing-item">
+          <h2 class="blog-listing-item-title"><a href={`/blog/${post.slug}`}>{post.data.title}</a></h2>
+          {excerpt(post) && <div class="blog-listing-excerpt" set:html={excerpt(post)} />}
+          <div class="blog-listing-meta">
+            {post.data.category && <span class="blog-listing-cat">{post.data.category}</span>}
+            {post.data.date && <time>{new Date(post.data.date).toLocaleDateString("fa-IR")}</time>}
+            <a href={`/blog/${post.slug}`} class="blog-listing-read">ادامه مطلب</a>
+          </div>
+        </article>
+      ))}
+    </div>
+  </main>
+</BaseLayout>
