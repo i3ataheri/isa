@@ -256,15 +256,37 @@ html, body {
   flex-direction: column;
   box-shadow: 0 1px 3px rgba(0,0,0,0.06);
 }
-
-.content-item::before {
-  content: "";
-  display: block;
-  height: 0.6rem;
-  width: 60%;
-  background: var(--color-bg-secondary);
-  border-radius: 4px;
-  margin-bottom: 0.5rem;
+.content-item h3 {
+  font-size: 0.95rem;
+  margin-bottom: 0.3rem;
+}
+.content-item h3 a {
+  color: var(--color-text);
+}
+.content-item h3 a:hover {
+  color: var(--color-accent);
+}
+.content-item p {
+  font-size: 0.8rem;
+  color: var(--color-text-secondary);
+  margin-bottom: 0.4rem;
+}
+.content-meta {
+  display: flex;
+  gap: 0.5rem;
+  align-items: center;
+  margin-top: auto;
+}
+.content-cat {
+  font-size: 0.7rem;
+  background: var(--color-accent-bg);
+  color: var(--color-accent);
+  padding: 0.1em 0.5em;
+  border-radius: 3px;
+}
+.content-meta time {
+  font-size: 0.7rem;
+  color: var(--color-text-muted);
 }
 
 .content-item::after {
@@ -383,6 +405,44 @@ pagefind-modal {
 .about-body {
   font-size: 0.92rem;
   color: var(--color-text-secondary);
+}
+
+/* ── Post page ── */
+.post-page {
+  max-width: 720px;
+  margin: 2rem auto;
+  padding: 0 1rem;
+}
+.post-article {
+  background: var(--color-bg-card);
+  border: 1px solid var(--color-border);
+  border-radius: var(--radius-md);
+  padding: 2rem;
+  line-height: 1.8;
+}
+.post-title {
+  font-family: var(--font-heading);
+  font-size: 1.5rem;
+  margin-bottom: 0.5rem;
+}
+.post-meta {
+  display: flex;
+  gap: 0.5rem;
+  align-items: center;
+  margin-bottom: 1.5rem;
+  padding-bottom: 1rem;
+  border-bottom: 1px solid var(--color-border-light);
+}
+.post-cat {
+  font-size: 0.75rem;
+  background: var(--color-accent-bg);
+  color: var(--color-accent);
+  padding: 0.15em 0.6em;
+  border-radius: 4px;
+}
+.post-meta time {
+  font-size: 0.8rem;
+  color: var(--color-text-muted);
 }
 
 /* ── Responsive ── */
