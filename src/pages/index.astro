@@ -19,6 +19,11 @@ const allPosts = await getCollection("blog");
 const published = allPosts.filter((p) => !p.data.draft).sort((a, b) => (b.data.date?.valueOf() ?? 0) - (a.data.date?.valueOf() ?? 0));
 const recent = published.slice(0, 5);
 const random = published.toSorted(() => Math.random() - 0.5).slice(0, 3);
+const seriesPosts = published.filter((p) => p.data.series);
+const seriesGroups = [...new Set(seriesPosts.map((p) => p.data.series).filter(Boolean))].map((s) => ({
+  name: s as string,
+  posts: seriesPosts.filter((p) => p.data.series === s).sort((a, b) => (a.data.seriesPart ?? 0) - (b.data.seriesPart ?? 0)),
+}));
 
 const catColors = ["#9f1239", "#dc2626", "#2563eb", "#d97706", "#7c3aed", "#0891b2", "#65a30d", "#be123c", "#9333ea", "#0d9488"];
 const sections = menu.map((m) => m.s).filter(Boolean);
@@ -82,9 +87,7 @@ const archive = [...months.entries()].slice(0, 6);
       </div>
       <div class="w-mini">
         <div class="w-mini-title">مجموعه مقالات</div>
-        <ul class="item-list">
-          {published.map((p, i) => (<li><a href={`/blog/${p.slug}`}>{i + 1}. {p.data.title}</a></li>))}
-        </ul>
+        {seriesGroups.length > 0 ? seriesGroups.map((sg) => (<><div class="series-group-name">{sg.name}</div><ul class="item-list">{sg.posts.map((p, i) => (<li><a href={`/blog/${p.slug}`}>{sg.posts.length > 1 ? `${i + 1}. ` : ""}{p.data.title}</a></li>))}</ul></>)) : <ul class="item-list"><li style="font-size:0.65rem;color:var(--color-text-muted)">مجموعه‌ای وجود ندارد</li></ul>}
       </div>
       <div class="w-mini">
         <div class="w-mini-title">تصادفی</div>

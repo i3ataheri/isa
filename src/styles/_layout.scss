@@ -232,6 +232,14 @@ html, body {
   padding-bottom: 0.3rem;
   border-bottom: 2px solid var(--color-accent);
 }
+.series-group-name {
+  font-size: 0.6rem;
+  font-family: var(--font-menu);
+  font-weight: 600;
+  color: var(--color-text);
+  margin-top: 0.3rem;
+  margin-bottom: 0.15rem;
+}
 
 /* ── Content ── */
 .col-content {
@@ -274,7 +282,6 @@ html, body {
   color: var(--color-accent);
 }
 .content-item .content-excerpt {
-  font-family: var(--font-menu);
   font-size: 0.85rem;
   color: var(--color-text-secondary);
   overflow: hidden;
@@ -435,14 +442,6 @@ pagefind-modal {
   font-size: 1.5rem;
   margin-bottom: 0.5rem;
 }
-.post-article h2,
-.post-article h3,
-.post-article h4 {
-  font-family: var(--font-menu);
-}
-.post-article h2 { font-size: 1.2rem; margin: 1.5rem 0 0.75rem; }
-.post-article h3 { font-size: 1rem; margin: 1.2rem 0 0.5rem; }
-.post-article h4 { font-size: 0.9rem; margin: 1rem 0 0.4rem; }
 .post-meta {
   display: flex;
   gap: 0.5rem;
