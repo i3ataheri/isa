@@ -5,9 +5,11 @@
 }
 .cm-content {
   direction: rtl;
+  unicode-bidi: plaintext;
   text-align: justify;
 }
 .cm-line {
   direction: rtl;
+  unicode-bidi: plaintext;
   text-align: justify;
 }
