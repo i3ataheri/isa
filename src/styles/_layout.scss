@@ -241,10 +241,10 @@ html, body {
 
 .content-grid {
   display: grid;
-  grid-template-columns: 1fr 1fr;
-  grid-template-rows: 1fr 1fr 1fr;
+  grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
   gap: 0.75rem;
   height: 100%;
+  align-content: start;
 }
 
 .content-item {
@@ -270,6 +270,10 @@ html, body {
   font-size: 0.8rem;
   color: var(--color-text-secondary);
   margin-bottom: 0.4rem;
+  display: -webkit-box;
+  -webkit-line-clamp: 3;
+  -webkit-box-orient: vertical;
+  overflow: hidden;
 }
 .content-meta {
   display: flex;
@@ -449,6 +453,24 @@ pagefind-modal {
   font-size: 0.8rem;
   color: var(--color-text-muted);
 }
+.post-share {
+  margin-top: 2rem;
+  padding-top: 1rem;
+  border-top: 1px solid var(--color-border-light);
+  text-align: center;
+}
+.share-btn {
+  background: var(--color-accent);
+  color: var(--color-text-inverse);
+  border: none;
+  border-radius: 6px;
+  padding: 0.5rem 1.2rem;
+  font-size: 0.85rem;
+  cursor: pointer;
+  font-family: var(--font-body);
+  transition: opacity var(--transition);
+}
+.share-btn:hover { opacity: 0.85; }
 
 /* ── Responsive ── */
 @media (max-width: 1100px) {

@@ -12,6 +12,7 @@ export async function getStaticPaths() {
 
 const { post } = Astro.props;
 const { Content } = await post.render();
+const url = `https://i3ataheri.ir/blog/${post.slug}`;
 ---
 
 <BaseLayout title={post.data.title} description={post.data.description}>
@@ -23,6 +24,24 @@ const { Content } = await post.render();
         {post.data.date && <time>{new Date(post.data.date).toLocaleDateString("fa-IR")}</time>}
       </div>
       <Content />
+      <div class="post-share">
+        <button class="share-btn" id="share-btn" data-url={url} data-title={post.data.title}>اشتراک‌گذاری</button>
+      </div>
     </article>
   </main>
+  <script>
+    const sb = document.getElementById("share-btn");
+    sb?.addEventListener("click", async () => {
+      const url = sb.dataset.url;
+      const title = sb.dataset.title;
+      if (navigator.share) {
+        try { await navigator.share({ title, url }); return; } catch {}
+      }
+      try {
+        await navigator.clipboard.writeText(url);
+        sb.textContent = "لینک کپی شد ✓";
+        setTimeout(() => { sb.textContent = "اشتراک‌گذاری"; }, 2000);
+      } catch {}
+    });
+  </script>
 </BaseLayout>
