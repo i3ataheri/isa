@@ -14,5 +14,5 @@
   "strictLineBreaks": true,
   "tabSize": 2,
   "useTab": false,
-  "templateFolder": ".obsidian/templates"
+  "templateFolder": "_templates"
 }
