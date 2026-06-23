@@ -74,21 +74,39 @@ const archive = [...months.entries()].slice(0, 6);
       <div class="menu-logo"><a href="/"><Logo /><span class="wi-tip">عیسی طاهری</span></a></div>
       <div class="menu-list">
         {menu.map((item) => (
-          <>
+          <div class="menu-sec-group">
             <div class="menu-sec">{item.s}</div>
-            {item.i.map((sub) => <a href={sub.h} class="menu-sub">{sub.l}</a>)}
-          </>
+            {item.i.map((sub) => {
+              const subPosts = sub.cat ? published.filter((p) => getCats(p).includes(sub.cat)) : [];
+              return (
+                <div class="menu-sub-group">
+                  <a href={sub.h || "#"} class="menu-sub">{sub.l}</a>
+                  {subPosts.length > 0 && (
+                    <div class="menu-drop">
+                      {subPosts.map((p) => <a href={`/blog/${p.slug}`} class="menu-link">{p.data.title}</a>)}
+                    </div>
+                  )}
+                </div>
+              );
+            })}
+          </div>
         ))}
       </div>
     </aside>
 
-    <!-- widget col 1: Icons / Categories / Series / Random -->
+    <!-- widget col 1: Icons / Recent / Series / Random -->
     <div class="col-w1">
       <div class="w-icons">
         <a href="/" class="wi-btn"><Home /><span class="wi-tip">خانه</span></a>
         <button class="wi-btn" id="about-btn"><About /><span class="wi-tip">درباره من</span></button>
         <button class="wi-btn" id="search-btn"><Search /><span class="wi-tip">جستجو</span></button>
         <button class="wi-btn" id="th-one"><span id="th-moon"><Moon /></span><span id="th-sun" style="display:none"><Sun /></span><span class="wi-tip">تم</span></button>
+      </div>
+      <div class="w-mini">
+        <div class="w-mini-title">جدیدترین</div>
+        <ul class="item-list">
+          {recent.map((r) => (<li><a href={`/blog/${r.slug}`}>{r.data.title}</a></li>))}
+        </ul>
       </div>
       <div class="w-mini">
         <div class="w-mini-title">مجموعه مقالات</div>
@@ -100,15 +118,49 @@ const archive = [...months.entries()].slice(0, 6);
           {random.map((r) => (<li><a href={`/blog/${r.slug}`}>{r.data.title}<span class="item-meta">({r.data.category})</span></a></li>))}
         </ul>
       </div>
-      <div class="w-mini w-mini-sm">
+    </div>
+
+    <!-- content -->
+    <main class="col-content">
+      <div class="content-grid">
+        {published.slice(0, 5).map((post) => (
+          <article class="content-item">
+            <h3><a href={`/blog/${post.slug}`}>{post.data.title}</a></h3>
+            {excerpt(post) && <div class="content-excerpt" set:html={excerpt(post)} />}
+            <div class="content-meta">
+              {post.data.category && <span class="content-cat">{post.data.category}</span>}
+              {post.data.date && <time>{new Date(post.data.date).toLocaleDateString("fa-IR")}</time>}
+              <a href={`/blog/${post.slug}`} class="read-more">ادامه مطلب</a>
+            </div>
+          </article>
+        ))}
+      </div>
+    </main>
+
+    <!-- widget col 2: Categories / Archive / Links -->
+    <div class="col-w2">
+      <div class="w-mini">
         <div class="w-mini-title">دسته‌بندی</div>
         <ul class="cat-list">
           {cats.map((c) => (
-            <li><a href="javascript:void(0)"><span class="cat-dot" style={`background:${c.color}`}></span>{c.name}<span class="cat-num">{c.count}</span></a></li>
+            <li><a href={`/blog?cat=${c.name}`}><span class="cat-dot" style={`background:${c.color}`}></span>{c.name}<span class="cat-num">{c.count}</span></a></li>
           ))}
         </ul>
       </div>
+      <div class="w-mini">
+        <div class="w-mini-title">آرشیو</div>
+        <ul class="arch-list">
+          {archive.map(([l, n]) => (<li><a href="javascript:void(0)">{l}<span class="arch-num">{n}</span></a></li>))}
+        </ul>
+      </div>
+      <div class="w-mini">
+        <div class="w-mini-title">لینک‌های مفید</div>
+        <ul class="link-list">
+          {links.map((ln) => (<li class="link-li"><a href={ln.h} target="_blank" rel="noopener">{ln.l}<span class="link-tip">{ln.t}</span></a></li>))}
+        </ul>
+      </div>
     </div>
+
     <script>
       const btn = document.getElementById("th-one");
       const moon = document.getElementById("th-moon");
@@ -148,44 +200,5 @@ const archive = [...months.entries()].slice(0, 6);
       <p class="about-desc">نویسنده و فعال دینی اهل سنت از خراسان زمین ساکن در دیار وحی</p>
       <p class="about-body">می‌نویسم از دین، باورهای فراموش‌شده و نگاه نقادانه به سنت و مدرنیته. اینجا جایی است برای مرور آنچه نادیده گرفته شده، بازخوانی باورهای کهن از منظری تازه، و گفت‌وگو دربارهٔ مسائل اعتقادی و اجتماعیِ جهان اسلام.</p>
     </dialog>
-
-    <!-- widget col 2: Recent / Archive / Stats -->
-    <div class="col-w2">
-      <div class="w-mini">
-        <div class="w-mini-title">جدیدترین</div>
-        <ul class="item-list">
-          {recent.map((r) => (<li><a href={`/blog/${r.slug}`}>{r.data.title}</a></li>))}
-        </ul>
-      </div>
-      <div class="w-mini">
-        <div class="w-mini-title">آرشیو</div>
-        <ul class="arch-list">
-          {archive.map(([l, n]) => (<li><a href="javascript:void(0)">{l}<span class="arch-num">{n}</span></a></li>))}
-        </ul>
-      </div>
-      <div class="w-mini">
-        <div class="w-mini-title">لینک‌های مفید</div>
-        <ul class="link-list">
-          {links.map((ln) => (<li class="link-li"><a href={ln.h} target="_blank" rel="noopener">{ln.l}<span class="link-tip">{ln.t}</span></a></li>))}
-        </ul>
-      </div>
-    </div>
-
-    <!-- content -->
-    <main class="col-content">
-      <div class="content-grid">
-        {published.map((post) => (
-          <article class="content-item">
-            <h3><a href={`/blog/${post.slug}`}>{post.data.title}</a></h3>
-            {excerpt(post) && <div class="content-excerpt" set:html={excerpt(post)} />}
-            <div class="content-meta">
-              {post.data.category && <span class="content-cat">{post.data.category}</span>}
-              {post.data.date && <time>{new Date(post.data.date).toLocaleDateString("fa-IR")}</time>}
-              <a href={`/blog/${post.slug}`} class="read-more">ادامه مطلب</a>
-            </div>
-          </article>
-        ))}
-      </div>
-    </main>
   </div>
 </BaseLayout>
